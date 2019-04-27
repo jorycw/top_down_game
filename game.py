@@ -1,5 +1,6 @@
 import pygame
 import player as plyr
+import projectile
 
 def main():
      
@@ -20,6 +21,8 @@ def main():
 
     pygame.display.flip()
      
+    projectiles = [] 
+
     while True:
         screen.fill([255, 255, 255])
         
@@ -29,12 +32,20 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
+            # 1 - left, 2 - middle, 3 - right, 4 - scroll up, 5 - scroll down
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                proj = player.get_projectile(event)
+                if proj != None:
+                    projectiles.append(proj)
+
+
         player.update(screen)
 
-        clock.tick(60)
+        for proj in projectiles:
+            proj.update(screen)
 
-            # if event.type == pygame.KEYDOWN:
-            #     player.move(event)
+        pygame.display.flip()
+        clock.tick(60)
      
 
 if __name__=="__main__":
