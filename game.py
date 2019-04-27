@@ -7,7 +7,6 @@ def read_pos(s):
     if s == '' or s is None:
         s = '0,0'
     s = s.split(',')
-    print(s)
     return int(s[0]), int(s[1])
 
 def make_pos(t):
@@ -20,7 +19,7 @@ def main():
     start_pos = read_pos(n.get_pos())
 
     logo = pygame.image.load("resources/smile.png")
-    screen = pygame.display.set_mode((1280,720))
+    screen = pygame.display.set_mode((500, 500))
     pygame.display.set_icon(logo)
     pygame.display.set_caption("minimal program")
 
