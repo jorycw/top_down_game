@@ -6,29 +6,35 @@ class Server():
         self.ip = ip
         self.port = port
 
-class Client():
-    def __init__(self, addr, cid):
-        self.addr = addr
-        self.cid = cid
+def read_pos(s):
+    s = s.split(',')
+    return int(s[0]), int(s[1])
 
-    def threaded_client(self, conn):
-        conn.send(str.encode(str(self.cid)))
-        reply = ''
-        while True:
-            try:
-                data = conn.recv(2048)
-                reply = data.decode('utf-8')
-                if not data:
-                    print(f'Client {self.cid} disconnected')
-                    break
-                else:
-                    print(f'Received: {reply}')
-                    print(f'Sending: {reply}')
-                conn.sendall(str.encode(reply))
-            except:
+def make_pos(t):
+    return f'{t[0]},{t[1]}'
+
+pos = [(0, 0), (50, 50)]
+
+def threaded_client(conn, player):
+    conn.send(str.encode(make_pos(pos[player])))
+    reply = ''
+    while True:
+        try:
+            data = read_pos(conn.recv(2048).decode)
+            pos[player] = data
+
+            if not data:
+                print(f'Client {player} disconnected')
                 break
-        print('Lost Connection')
-        conn.close()
+            else:
+                reply = pos[player - 1]
+                print(f'Received: {data}')
+                print(f'Sending: {reply}')
+            conn.sendall(str.encode(make_pos(reply)))
+        except:
+            break
+    print('Lost Connection')
+    conn.close()
 
 if __name__ == '__main__':
     server = Server('10.19.223.127', 5555)
@@ -46,8 +52,6 @@ if __name__ == '__main__':
     client_num = 0
     while True:
         conn, addr = s.accept()
-        clients.append(Client(addr, client_num))
-        client_num += 1
-
         print(f"Connected to: {addr}")
-        start_new_thread(clients[0].threaded_client, (conn,))
+        start_new_thread(threaded_client, (conn, client_num))
+        client_num += 1
