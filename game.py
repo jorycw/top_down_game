@@ -1,32 +1,5 @@
 import pygame
-
-SPEED = 4
-
-class Player:
-
-    def __init__(self, x, y):
-        self.image = pygame.image.load("resources/player.png")
-        self.x = x
-        self.y = y
-
-    def detect_movement(self):
-        keys_pressed = pygame.key.get_pressed()
-        if keys_pressed[pygame.K_LEFT]:
-            self.x -= SPEED
-        if keys_pressed[pygame.K_RIGHT]:
-            self.x += SPEED
-        if keys_pressed[pygame.K_UP]:
-            self.y -= SPEED
-        if keys_pressed[pygame.K_DOWN]:
-            self.y += SPEED
-
-    def detect_click(self):
-        not_done = True
-
-    def update(self, screen):
-        screen.blit(self.image, (self.x, self.y))
-        pygame.display.flip()
-
+import player as plyr
 
 def main():
      
@@ -43,7 +16,7 @@ def main():
     screen.fill([255, 255, 255])     
 
 
-    player = Player(50, 50)
+    player = plyr.Player(50, 50)
 
     pygame.display.flip()
      
@@ -55,7 +28,6 @@ def main():
             if event.type == pygame.QUIT:
                 break
 
-        player.detect_movement()
         player.update(screen)
 
         clock.tick(60)
