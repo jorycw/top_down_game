@@ -27,7 +27,7 @@ def main():
     projectiles = [] 
 
     while True:
-        # screen.fill([255, 255, 255])
+        screen.fill([255, 255, 255])
         
         if pygame.key.get_pressed()[pygame.K_ESCAPE]:
             pygame.quit()
@@ -48,7 +48,7 @@ def main():
         for proj in projectiles:
             proj.update(screen)
 
-        # pygame.display.flip()
+        pygame.display.flip()
         clock.tick(60)
      
 

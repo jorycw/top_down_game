@@ -44,8 +44,9 @@ class Player(pygame.sprite.Sprite):
 
 
     def update(self, screen):
-        screen.draw.filled_rect(self.rect, (255, 255, 255))
+        
         self.movement()
         self.update_cd()
+
         screen.blit(self.image, self.rect)
         pygame.display.update(self.rect)
