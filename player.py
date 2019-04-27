@@ -1,6 +1,6 @@
 import pygame
 
-SPEED = 4
+SPEED = 10
 
 class Player:
 

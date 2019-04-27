@@ -23,10 +23,11 @@ def main():
     while True:
         screen.fill([255, 255, 255])
         
+        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+            pygame.quit()
         for event in pygame.event.get():
-
             if event.type == pygame.QUIT:
-                break
+                pygame.quit()
 
         player.update(screen)
 
@@ -34,10 +35,6 @@ def main():
 
             # if event.type == pygame.KEYDOWN:
             #     player.move(event)
-
-     
-
-
      
 
 if __name__=="__main__":
