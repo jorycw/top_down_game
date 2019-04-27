@@ -1,7 +1,7 @@
 import pygame
 import projectile as prjct
 
-SPEED = 10
+SPEED = 5
 PROJ_CD = 60
 
 class Player(pygame.sprite.Sprite):
@@ -17,14 +17,18 @@ class Player(pygame.sprite.Sprite):
 
     def movement(self):
         keys_pressed = pygame.key.get_pressed()
+        change = [0, 0]
         if keys_pressed[pygame.K_LEFT]:
-            self.rect.x -= SPEED
+            change[0] -= SPEED
         if keys_pressed[pygame.K_RIGHT]:
-            self.rect.x += SPEED
+            change[0] += SPEED
         if keys_pressed[pygame.K_UP]:
-            self.rect.y -= SPEED
+            change[1] -= SPEED
         if keys_pressed[pygame.K_DOWN]:
-            self.rect.y += SPEED
+            change[1] += SPEED
+        #3self.rect.x, 
+        self.rect.x += change[0]
+        self.rect.y += change[1]
 
     def get_projectile(self, event):
         if self.cd == 0:
@@ -40,6 +44,8 @@ class Player(pygame.sprite.Sprite):
 
 
     def update(self, screen):
+        screen.draw.filled_rect(self.rect, (255, 255, 255))
         self.movement()
         self.update_cd()
         screen.blit(self.image, self.rect)
+        pygame.display.update(self.rect)
