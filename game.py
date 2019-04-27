@@ -3,12 +3,14 @@ import player as plyr
 import projectile
 import obj
 
+
 def main():
      
 
     pygame.init()
 
     logo = pygame.image.load("resources/smile.png")
+
     pygame.display.set_icon(logo)
     pygame.display.set_caption("minimal program")
 
