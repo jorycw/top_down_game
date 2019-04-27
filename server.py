@@ -12,6 +12,7 @@ class Client():
         self.cid = cid
 
     def threaded_client(self, conn):
+        conn.send(str.encode(str(self.cid)))
         reply = ''
         while True:
             try:
@@ -26,6 +27,8 @@ class Client():
                 conn.sendall(str.encode(reply))
             except:
                 break
+        print('Lost Connection')
+        conn.close()
 
 if __name__ == '__main__':
     server = Server('10.19.223.127', 5555)
@@ -47,4 +50,4 @@ if __name__ == '__main__':
         client_num += 1
 
         print(f"Connected to: {addr}")
-        start_new_thread(clients[0].threaded_client, (conn))
+        start_new_thread(clients[0].threaded_client, (conn,))
