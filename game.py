@@ -8,7 +8,7 @@ def main():
     # pygame.init()
 
     n = Network()
-    game_state = n.get_p()
+    game_state, obstacles = n.get_p()
 
     # logo = pygame.image.load("resources/smile.png")
     screen = pygame.display.set_mode((500, 500))
@@ -41,14 +41,16 @@ def main():
         game_state.get_p().update()
 
         screen.fill([255, 255, 255])
-          
-        print(len(game_state.players))
-        for p_ in game_state.players:
-            p_.draw(screen)
+
+        for key in game_state.players:
+            game_state.players[key].draw(screen)
 
         for key in game_state.projectiles:
             for p_ in game_state.projectiles[key]:
                 p_.draw(screen) #             p_.update()
+
+        for o_ in obstacles:
+            o_.draw(screen)
 
         pygame.display.update()
 
