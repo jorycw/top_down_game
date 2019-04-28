@@ -5,15 +5,11 @@ from network import Network
 import game_state as g_s
 
 def main():
-    # pygame.init()
-
     n = Network()
     game_state, obstacles = n.get_p()
 
-    # logo = pygame.image.load("resources/smile.png")
     screen = pygame.display.set_mode((500, 500))
-    # pygame.display.set_icon(logo)
-    # pygame.display.set_caption("minimal program")
+
 
     clock = pygame.time.Clock()
      
@@ -47,7 +43,7 @@ def main():
 
         for key in game_state.projectiles:
             for p_ in game_state.projectiles[key]:
-                p_.draw(screen) #             p_.update()
+                p_.draw(screen)
 
         for o_ in obstacles:
             o_.draw(screen)

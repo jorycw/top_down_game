@@ -48,7 +48,5 @@ class Player(pygame.sprite.Sprite):
         self.update_cd()
 
     def draw(self, screen):
-        # cant pickle this image, later load it onto client
-        # and access it from there
         image = pygame.image.load("resources/player.png")
         screen.blit(image, self.rect)

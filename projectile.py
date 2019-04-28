@@ -22,8 +22,6 @@ class Projectile:
 		self.x += self.vector[0] * SPEED
 		self.y += self.vector[1] * SPEED
 
-		## if offscreen or on 
-
 	def draw(self, screen):
 		image = pygame.image.load("resources/projectile.png")
 		screen.blit(image, (self.x, self.y))

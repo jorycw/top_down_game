@@ -84,14 +84,7 @@ def threaded_client(conn, player):
     print("Lost connection")
     conn.close()
 
-
-
-    
-
-
-
 next_player = 0
-
 while True:
     conn, addr = s.accept()
     print("Connected to:", addr)

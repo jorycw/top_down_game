@@ -1,5 +1,3 @@
-
-
 class Game_State():
 
 	def __init__(self, id, players, projectiles):
