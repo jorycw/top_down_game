@@ -25,8 +25,8 @@ def setup_game(obstacles):
         y += block_size[1]
 
 
-## WA wifi? bens server = '10.19.223.127'
-## Labs comp server = '172.28.1.88'
+# server = '10.19.223.127' # UW
+# server = '172.28.1.88'   # ATTU
 
 players = {}
 projectiles = {}
