@@ -7,7 +7,7 @@ SPEED = 13
 class Projectile:
 
 	def __init__(self, rect, event):
-		self.image = pygame.image.load("resources/projectile.png")
+		image = pygame.image.load("resources/projectile.png")
 		self.x = rect[0]
 		self.y = rect[1]
 		x_, y_ = pygame.mouse.get_pos()
@@ -18,8 +18,12 @@ class Projectile:
 		unit_vec = (x_delta / vec_size, y_delta / vec_size)
 		self.vector = unit_vec
 
-	def update(self, screen):
+	def update(self):
 		self.x += self.vector[0] * SPEED
 		self.y += self.vector[1] * SPEED
 
-		screen.blit(self.image, (self.x, self.y))
+		## if offscreen or on 
+
+	def draw(self, screen):
+		image = pygame.image.load("resources/projectile.png")
+		screen.blit(image, (self.x, self.y))

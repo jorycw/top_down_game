@@ -8,9 +8,10 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("resources/player.png")
-        self.rect = self.image.get_rect()
-        
+
+        image = pygame.image.load("resources/player.png")
+        self.rect = image.get_rect()
+
         self.rect.x = x
         self.rect.y = y
         self.cd = 0
@@ -26,7 +27,7 @@ class Player(pygame.sprite.Sprite):
             change[1] -= SPEED
         if keys_pressed[pygame.K_DOWN]:
             change[1] += SPEED
-        #3self.rect.x, 
+        # self.rect.x, 
         self.rect.x += change[0]
         self.rect.y += change[1]
 
@@ -42,11 +43,12 @@ class Player(pygame.sprite.Sprite):
         if self.cd > 0:
             self.cd -= 1
 
-
-    def update(self, screen):
-        
+    def update(self):
         self.movement()
         self.update_cd()
 
-        screen.blit(self.image, self.rect)
-        pygame.display.update(self.rect)
+    def draw(self, screen):
+        # cant pickle this image, later load it onto client
+        # and access it from there
+        image = pygame.image.load("resources/player.png")
+        screen.blit(image, self.rect)

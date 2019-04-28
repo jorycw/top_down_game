@@ -1,55 +1,57 @@
 import pygame
 import player as plyr
 import projectile
-import obj
-
+from network import Network
+import game_state as g_s
 
 def main():
-     
+    # pygame.init()
 
-    pygame.init()
+    n = Network()
+    game_state = n.get_p()
 
-    logo = pygame.image.load("resources/smile.png")
-
-    pygame.display.set_icon(logo)
-    pygame.display.set_caption("minimal program")
+    # logo = pygame.image.load("resources/smile.png")
+    screen = pygame.display.set_mode((500, 500))
+    # pygame.display.set_icon(logo)
+    # pygame.display.set_caption("minimal program")
 
     clock = pygame.time.Clock()
-
-    screen = pygame.display.set_mode((1280,720))
-    screen.fill([255, 255, 255])     
-
-
-    player = plyr.Player(50, 50)
-
-    pygame.display.flip()
      
-    projectiles = [] 
+    projectile = None 
 
     while True:
-        screen.fill([255, 255, 255])
-        
-        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
-            pygame.quit()
+        clock.tick(60)
+
+        game_state = n.send([game_state.get_p(), projectile])
+        projectile = None
+
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-            # 1 - left, 2 - middle, 3 - right, 4 - scroll up, 5 - scroll down
+            
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                proj = player.get_projectile(event)
+            # 1 - left, 2 - middle, 3 - right, 4 - scroll up, 5 - scroll down
+                proj = game_state.get_p().get_projectile(event)
                 if proj != None:
-                    projectiles.append(proj)
+                    projectile = proj
 
-        rock = obj.Object(80, 20, "resources/block.png")
 
-        player.update(screen)
+        game_state.get_p().update()
 
-        for proj in projectiles:
-            proj.update(screen)
+        screen.fill([255, 255, 255])
+          
+        print(len(game_state.players))
+        for p_ in game_state.players:
+            p_.draw(screen)
 
-        pygame.display.flip()
-        clock.tick(60)
+        for key in game_state.projectiles:
+            for p_ in game_state.projectiles[key]:
+                p_.draw(screen) #             p_.update()
+
+        pygame.display.update()
+
      
 
 if __name__=="__main__":
